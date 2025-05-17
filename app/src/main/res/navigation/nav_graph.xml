@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.health.ui.fragments.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/activity_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_healthFragment"
+            app:destination="@id/healthFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.health.ui.fragments.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/activity_register">
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/healthFragment"
+        android:name="com.example.health.ui.fragments.HealthFragment"
+        android:label="HealthFragment"
+        tools:layout="@layout/activity_main">
+        <action
+            android:id="@+id/action_healthFragment_to_dailyDataFragment"
+            app:destination="@id/dailyDataFragment" />
+        <action
+            android:id="@+id/action_healthFragment_to_totalDataFragment"
+            app:destination="@id/totalDataFragment" />
+        <action
+            android:id="@+id/action_healthFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+        <action
+            android:id="@+id/action_healthFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dailyDataFragment"
+        android:name="com.example.health.ui.fragments.DailyDataFragment"
+        android:label="DailyDataFragment"
+        tools:layout="@layout/activity_daily_data">
+        <action
+            android:id="@+id/action_dailyDataFragment_to_healthFragment"
+            app:destination="@id/healthFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/totalDataFragment"
+        android:name="com.example.health.ui.fragments.TotalDataFragment"
+        android:label="TotalDataFragment"
+        tools:layout="@layout/activity_total_data">
+        <action
+            android:id="@+id/action_totalDataFragment_to_healthFragment"
+            app:destination="@id/healthFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.health.ui.fragments.ExerciseFragment"
+        android:label="ExerciseFragment"
+        tools:layout="@layout/activity_exercise">
+        <action
+            android:id="@+id/action_exerciseFragment_to_exerciseHistoryFragment"
+            app:destination="@id/exerciseHistoryFragment" />
+        <action
+            android:id="@+id/action_exerciseFragment_to_outdoorExerciseFragment"
+            app:destination="@id/outdoorExerciseFragment" />
+        <action
+            android:id="@+id/action_exerciseFragment_to_healthFragment"
+            app:destination="@id/healthFragment" />
+        <action
+            android:id="@+id/action_exerciseFragment_to_profileFragment"
+            app:destination="@id/outdoorExerciseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exerciseHistoryFragment"
+        android:name="com.example.health.ui.fragments.ExerciseHistoryFragment"
+        android:label="ExerciseHistoryFragment"
+        tools:layout="@layout/activity_exercise_history">
+        <action
+            android:id="@+id/action_exerciseHistoryFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/outdoorExerciseFragment"
+        android:name="com.example.health.ui.fragments.OutdoorExerciseFragment"
+        android:label="OutdoorExerciseFragment"
+        tools:layout="@layout/activity_outdoorexercise">
+        <action
+            android:id="@+id/action_outdoorExerciseFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.health.ui.fragments.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/activity_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_privacySettingsFragment"
+            app:destination="@id/privacySettingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_healthReportFragment"
+            app:destination="@id/healthReportFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_healthFragment"
+            app:destination="@id/healthFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.health.ui.fragments.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/activity_edit_profile">
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/privacySettingsFragment"
+        android:name="com.example.health.ui.fragments.PrivacySettingsFragment"
+        android:label="PrivacySettingsFragment"
+        tools:layout="@layout/activity_edit_privacy">
+        <action
+            android:id="@+id/action_privacySettingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/healthReportFragment"
+        android:name="com.example.health.ui.fragments.HealthReportFragment"
+        android:label="HealthReportFragment"
+        tools:layout="@layout/activity_health_report">
+        <action
+            android:id="@+id/action_healthReportFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.health.ui.viewmodel.ProfileViewModel" />
+        <import type="com.example.health.R" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/privacySettingsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background">
+
+        <!--        顶部导航栏-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            android:layout_alignParentTop ="true">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/back"
+                android:onClick="@{() -> viewModel.navigateToProfile()}"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="隐私权限设置"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+
+<!--            &lt;!&ndash;                    GPS&ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingRight="0dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="GPS"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginLeft="20dp"/>-->
+
+<!--                &lt;!&ndash; 用于填充剩余空间 &ndash;&gt;-->
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"/>-->
+
+<!--                <androidx.appcompat.widget.SwitchCompat-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:checked="@={viewModel.gpsPermissionGranted}"-->
+<!--                    android:onCheckedChanged="@{(button, isChecked) -> viewModel.onGpsPermissionChanged(isChecked)}"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash;                    加速计&ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingRight="0dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="加速计"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginLeft="20dp"/>-->
+
+<!--                &lt;!&ndash; 用于填充剩余空间 &ndash;&gt;-->
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"/>-->
+
+<!--                <androidx.appcompat.widget.SwitchCompat-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:checked="@={viewModel.accelerometerPermissionGranted}"-->
+<!--                    android:onCheckedChanged="@{(button, isChecked) -> viewModel.onAccelerometerPermissionChanged(isChecked)}"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; 麦克风 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingRight="0dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="麦克风"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginLeft="20dp"/>-->
+
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"/>-->
+
+<!--                <androidx.appcompat.widget.SwitchCompat-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:checked="@={viewModel.microphonePermissionGranted}"-->
+<!--                    android:onCheckedChanged="@{(button, isChecked) -> viewModel.onMicrophonePermissionChanged(isChecked)}"/>-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; 存储权限 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingRight="0dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="存储"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginLeft="20dp"/>-->
+
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"/>-->
+
+<!--                <androidx.appcompat.widget.SwitchCompat-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:checked="@={viewModel.storagePermissionGranted}"-->
+<!--                    android:onCheckedChanged="@{(button, isChecked) -> viewModel.onStoragePermissionChanged(isChecked)}"/>-->
+<!--            </LinearLayout>-->
+
+            <!-- 权限列表 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPermissions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                app:items="@{viewModel.permissionItems}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_permission"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

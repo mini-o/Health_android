@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.health.ui.viewmodel.HealthViewModel" />
+        <variable
+            name="TimeRangeType"
+            type="com.example.health.model.enums.TimeRangeType" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/totalDataFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--        顶部导航栏-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#FFFFFF"
+                android:orientation="horizontal"
+                android:layout_alignParentTop ="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/back"
+                    android:onClick="@{() -> vm.navigateToHealth()}"/>
+
+                <TextView
+                    android:layout_width="300dp"
+                    android:layout_height="64dp"
+                    android:gravity="center"
+                    android:text="运动统计"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <!-- 日、周、月、年选择器 -->
+                <!-- 时间范围选择器 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
+
+                    <!-- 修改按钮绑定表达式 -->
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="日"
+                        android:backgroundTint="@{vm.timeRangeType == TimeRangeType.DAY ? @color/primary : @color/white}"
+                        android:textColor="@{vm.timeRangeType == TimeRangeType.DAY ? @color/white : @color/black}"
+                        android:onClick="@{() -> vm.setTimeRangeType(TimeRangeType.DAY)}"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="周"
+                        android:backgroundTint="@{vm.timeRangeType == TimeRangeType.WEEK ? @color/primary : @color/white}"
+                        android:textColor="@{vm.timeRangeType == TimeRangeType.WEEK ? @color/white : @color/black}"
+                        android:onClick="@{() -> vm.setTimeRangeType(TimeRangeType.WEEK)}"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="月"
+                        android:backgroundTint="@{vm.timeRangeType == TimeRangeType.MONTH ? @color/primary : @color/white}"
+                        android:textColor="@{vm.timeRangeType == TimeRangeType.MONTH ? @color/white : @color/black}"
+                        android:onClick="@{() -> vm.setTimeRangeType(TimeRangeType.MONTH)}"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="年"
+                        android:backgroundTint="@{vm.timeRangeType == TimeRangeType.YEAR ? @color/primary : @color/white}"
+                        android:textColor="@{vm.timeRangeType == TimeRangeType.YEAR ? @color/white : @color/black}"
+                        android:onClick="@{() -> vm.setTimeRangeType(TimeRangeType.YEAR)}"/>
+                </LinearLayout>
+
+                <!-- 时间范围下拉选择器 -->
+                <com.example.health.widgets.DateRangePicker
+                    android:id="@+id/dateRangePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:dateRangeAttrChanged="@{() -> vm.loadSummaryData()}"/>
+
+            </LinearLayout>
+
+<!--            步数-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="步数"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+            <!--柱状图-->
+                <com.example.health.widgets.CustomBarChartView
+                    android:id="@+id/stepsChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartXFormatter="@{vm.timeRangeType == 0 ? &quot;day&quot; : vm.timeRangeType == 1 ? &quot;week&quot; : vm.timeRangeType == 2 ? &quot;month&quot; : &quot;year&quot;}"/>
+            </LinearLayout>
+
+            <!--            公里（km）-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="公里/km"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <com.example.health.widgets.CustomBarChartView
+                    android:id="@+id/distanceChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartXFormatter="@{vm.timeRangeType == 0 ? &quot;day&quot; : vm.timeRangeType == 1 ? &quot;week&quot; : vm.timeRangeType == 2 ? &quot;month&quot; : &quot;year&quot;}"/>
+            </LinearLayout>
+
+            <!--            运动时长-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="运动时长/min"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <com.example.health.widgets.CustomBarChartView
+                    android:id="@+id/durationChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartXFormatter="@{vm.timeRangeType == 0 ? &quot;day&quot; : vm.timeRangeType == 1 ? &quot;week&quot; : vm.timeRangeType == 2 ? &quot;month&quot; : &quot;year&quot;}"/>
+            </LinearLayout>
+
+            <!--            运动次数-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+               <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="运动次数"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"
+                   android:layout_marginBottom="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <!--                柱状图-->
+                <com.example.health.widgets.CustomBarChartView
+                    android:id="@+id/countChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartXFormatter="@{vm.timeRangeType == 0 ? &quot;day&quot; : vm.timeRangeType == 1 ? &quot;week&quot; : vm.timeRangeType == 2 ? &quot;month&quot; : &quot;year&quot;}"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

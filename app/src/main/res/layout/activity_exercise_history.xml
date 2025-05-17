@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.health.ui.viewmodel.ExerciseViewModel" />
+        <variable
+            name="utils"
+            type="com.example.health.utils.ExerciseUtils" />
+        <import type="android.view.View" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/exerciseHistoryFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--        顶部导航栏-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#FFFFFF"
+                android:orientation="horizontal"
+                android:layout_alignParentTop ="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/back"
+                    android:onClick="@{() -> vm.navigateToExercise()}"/>
+
+                <TextView
+                    android:layout_width="300dp"
+                    android:layout_height="64dp"
+                    android:gravity="center"
+                    android:text="运动记录"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <!-- 记录列表 -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="390dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_corner"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:recordsData="@{vm.allRecords}"
+                    tools:listitem="@layout/item_exercise_record" />
+
+                <!-- 空状态 -->
+                <TextView
+                    android:layout_width="390dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_corner"
+                    android:gravity="center"
+                    android:text="暂无运动记录"
+                    android:visibility="@{vm.allRecords.isEmpty() ? View.VISIBLE : View.GONE}"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

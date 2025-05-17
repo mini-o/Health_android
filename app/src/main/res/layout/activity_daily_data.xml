@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.health.ui.viewmodel.HealthViewModel" />
+        <variable
+            name="dateUtils"
+            type="com.example.health.utils.DateUtils" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/dailyDataFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--        顶部导航栏-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#FFFFFF"
+                android:orientation="horizontal"
+                android:layout_alignParentTop ="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/back"
+                    android:onClick="@{() -> viewModel.navigateToHealth()}"/>
+
+                <TextView
+                    android:layout_width="300dp"
+                    android:layout_height="64dp"
+                    android:gravity="center"
+                    android:text="健康"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <!-- 日期选择器 -->
+            <com.example.health.widgets.DateRangePicker
+                android:id="@+id/dateRangePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:selectedDate="@{viewModel.selectedDate}"
+                app:onDateSelected="@{(date) -> viewModel.setSelectedDate(date)}"/>
+
+            <View
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@color/line" />
+
+            <!--传感器部分数据显示，改变日期步数和运动时长数据要相应的改变，显示选择日期的步数总数和运动总时长-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:text="步数" />
+
+                    <View
+                        android:layout_width="130dp"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="18sp"
+                        android:text="@{viewModel.selectedDateSteps}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:text="运动时长" />
+
+                    <View
+                        android:layout_width="130dp"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="18sp"
+                        android:text="@{dateUtils.formatDuration(viewModel.SelectedDateDuration)}" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--            步数-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="步数"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <com.example.health.widgets.CustomChartView
+                    android:id="@+id/stepsChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartData="@{viewModel.dailyStepsData}"
+                    app:chartXFormatter="day"/>
+
+            </LinearLayout>
+
+            <!--            运动时长-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运动时长（min）"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <!--                折线图-->
+                <com.example.health.widgets.CustomChartView
+                    android:id="@+id/exerciseChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartData="@{viewModel.dailyExerciseData}"
+                    app:chartXFormatter="day"/>
+            </LinearLayout>
+
+            <!--            呼吸频率-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="呼吸频率"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <!--                折线图-->
+                <com.example.health.widgets.CustomChartView
+                    android:id="@+id/breathingChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartData="@{viewModel.dailyBreathingData}"
+                    app:chartXFormatter="day"/>
+            </LinearLayout>
+
+            <!--            速度-->
+            <LinearLayout
+                android:layout_width="390dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="速度（km/h）"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line" />
+
+                <!--                折线图-->
+                <com.example.health.widgets.CustomChartView
+                    android:id="@+id/speedChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:chartData="@{viewModel.dailySpeedData}"
+                    app:chartXFormatter="day"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

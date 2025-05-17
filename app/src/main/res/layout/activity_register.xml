@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.health.ui.viewmodel.LoginViewModel" />
+
+        <import type="android.view.View" />
+        <import type="com.example.health.model.Result"/>
+        <import type="com.example.health.ui.viewmodel.LoginViewModel.UiState" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/registerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="130dp"
+            android:layout_marginBottom="80dp"
+            android:layout_width="150dp"
+            android:layout_gravity="center"
+            android:letterSpacing="0.5"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/black"
+            android:textSize="45sp"/>
+
+        <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="@{vm.uiState == UiState.SHOW_CODE_INPUTS ? View.VISIBLE : View.GONE}">
+
+                    <EditText
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:text="@={vm.mName}"
+                        android:hint="请输入手机号"
+                        android:maxLines="1"
+                        android:padding="30px"
+                        android:inputType="phone"
+                        android:maxLength="11"/>
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/delete_text"
+                        android:onClick="@{() -> vm.cmdCleanName()}"
+                        android:visibility="@{vm.mName != null &amp;&amp; !vm.mName.isEmpty() ? View.VISIBLE : View.GONE}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/codeInputs"
+                        android:layout_width="150dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:hint="请输入验证码"
+                        android:maxLines="1"
+                        android:padding="30px"
+                        android:inputType="number"
+                        android:text="@={vm.mCode}"/>
+
+
+                    <com.example.health.widgets.CountdownButton
+                        android:id="@+id/getCodeButton"
+                        android:layout_marginLeft="10dp"
+                        android:text="获取验证码"
+                        android:textSize="16dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="140dp"
+                        android:layout_height="50dp"
+                        android:onClick="@{() -> vm.sendVerificationCode()}"
+                        android:enabled="@{vm.mName != null &amp;&amp; vm.mName.length() == 11}"
+                        android:backgroundTint="@{vm.mName != null &amp;&amp; vm.mName.length() == 11 ? @color/blue : @color/gray}"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="@{vm.uiState == UiState.SHOW_PASSWORD_INPUTS ? View.VISIBLE : View.GONE}">
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/passwordInputs"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:text="@={vm.mPassword}"
+                        android:hint="请输入密码（6-20位）"
+                        android:maxLines="1"
+                        android:padding="30px"
+                        android:inputType="textPassword"/>
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/delete_text"
+                        android:onClick="@{() -> vm.cmdCleanPassword()}"
+                        android:visibility="@{vm.mPassword != null &amp;&amp; !vm.mPassword.isEmpty() ? View.VISIBLE : View.GONE}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="270dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:hint="请再次输入密码"
+                        android:maxLines="1"
+                        android:padding="30px"
+                        android:inputType="textPassword"
+                        android:text="@={vm.mConfirmPassword}"/>
+
+                    <ImageView
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/delete_text"
+                        android:onClick="@{() -> vm.cmdCleanConfirmPassword()}"
+                        android:visibility="@{vm.mConfirmPassword != null &amp;&amp; !vm.mConfirmPassword.isEmpty() ? View.VISIBLE : View.GONE}"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <!-- 错误提示 -->
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="@{vm.verifyResult.error ?? vm.registerResult.error}"
+            android:textColor="@color/wrong"
+            android:visibility="@{(vm.verifyResult.error != null || vm.registerResult.error != null) ? View.VISIBLE : View.GONE}"/>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="50dp"
+            android:shadowColor="@color/black"
+            android:text="确定"
+            android:onClick="@{() -> vm.uiState == UiState.SHOW_CODE_INPUTS ? vm.verifyCode(vm.mCode) : vm.registerOrResetPassword(vm.mPassword, vm.mConfirmPassword)}"
+            android:enabled="@{(vm.uiState == UiState.SHOW_CODE_INPUTS &amp;&amp; vm.mCode != null &amp;&amp; vm.mCode.length() == 6) || (vm.uiState == UiState.SHOW_PASSWORD_INPUTS &amp;&amp; vm.mPassword != null &amp;&amp; vm.mPassword.length() >= 6 &amp;&amp; vm.mConfirmPassword != null &amp;&amp; vm.mConfirmPassword.length() >= 6)}"
+            android:backgroundTint="@{(vm.uiState == UiState.SHOW_CODE_INPUTS &amp;&amp; vm.mCode != null &amp;&amp; vm.mCode.length() == 6) || (vm.uiState == UiState.SHOW_PASSWORD_INPUTS &amp;&amp; vm.mPassword != null &amp;&amp; vm.mPassword.length() >= 6 &amp;&amp; vm.mConfirmPassword != null &amp;&amp; vm.mConfirmPassword.length() >= 6) ? @color/blue : @color/gray}">
+
+        </Button>
+
+    </LinearLayout>
+</layout>

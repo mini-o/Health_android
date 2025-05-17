@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background">#DCDCDC</color>
+    <color name="line">#F5F5F5</color>
+    <color name="selected_color">#808080</color>
+    <color name="exercise_color">#80FFFFFF</color>
+    <color name="wrong">#FF0000</color>
+    <color name="blue">#1E90FF</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
+    <color name="chart_fill">#81C784</color>
+</resources>

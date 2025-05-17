@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.health.ui.viewmodel.ProfileViewModel" />
+        <variable
+            name="profile"
+            type="com.example.health.model.pojo.UserProfile" />
+
+        <import type="android.view.View" />
+        <import type="com.example.health.model.enums.Gender" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/editProfileFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background">
+
+<!--        顶部导航栏-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            android:layout_alignParentTop ="true">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/back"
+                android:onClick="@{() -> viewModel.navigateToProfile()}"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="个人信息"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+
+            <!--                    头像-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:text="头像"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <com.example.health.widgets.AvatarImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    app:avatar="@{profile.avatar}"
+                    android:onClick="@{v -> viewModel.changeAvatar(v.getContext())}"/>
+
+            </LinearLayout>
+
+            <!--                    昵称-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="昵称"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="20dp"
+                    android:gravity="end"
+                    android:background="null"
+                    android:textSize="20sp"
+                    android:text="@={profile.nickname}"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+            <!--                    性别-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="20dp"
+                    android:gravity="end"
+                    android:textSize="20sp"
+                    android:text='@{profile.gender != null ? profile.gender.description : "请选择"}'
+                    android:textColor="@{profile.gender != null ? @color/text_primary : @color/text_hint}"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+            <!--                    年龄-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="年龄"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="20dp"
+                    android:gravity="end"
+                    android:textSize="20sp"
+                    android:text="@{viewModel.formattedBirthDate}"
+                    android:textColor="@{viewModel.formattedBirthDate.isEmpty() ? @color/text_hint : @color/text_primary}"
+                    android:onClick="@{v -> viewModel.showDatePicker(v.getContext())}"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+            <!--                    身高-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身高（cm)"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="20dp"
+                    android:gravity="end"
+                    android:background="null"
+                    android:textSize="20sp"
+                    android:text="@={viewModel.heightInput}"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+            <!--                    体重-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="体重(kg)"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <EditText
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="20dp"
+                    android:background="null"
+                    android:gravity="end"
+                    android:textSize="20sp"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.weightInput}"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

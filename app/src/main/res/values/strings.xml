@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">health</string>
+    <string name="no_data">暂无数据</string>
+    <string name="speed_format">%.1f km/h</string>
+    <string name="duration_format">%d分钟</string>
+    <string name="bpm_format">%d bpm</string>
+    <string name="distance_format">%.2f km</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_failed">登录失败</string>
+    <string name="default_phone_hint">请输入手机号</string>
+    <string name="default_password_hint">请输入密码</string>
+    <string name="default_code_hint">请输入验证码</string>
+    <string name="get_verification_code">获取验证码</string>
+    <string name="resend_verification_code">重新发送(%ds)</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="account_or_password_error">账号或密码错误</string>
+    <string name="verification_code_error">验证码错误</string>
+    <string name="password_not_match">两次密码不一致</string>
+    <string name="exercise_score">运动评分：%d</string>
+    <string name="sleep_score">睡眠评分：%d</string>
+    <string name="nutrition_score">营养评分：%d</string>
+    <string name="health_score">健康评分：%d</string>
+    <string name="bmi_level_normal">正常</string>
+    <string name="bmi_level_overweight">过重</string>
+</resources>

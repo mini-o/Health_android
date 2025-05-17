@@ -1,0 +1,64 @@
+<!-- item_login_history.xml -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="history"
+            type="com.example.health.model.pojo.LoginHistory" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{history.phoneNumber}"
+                android:textSize="16sp"
+                tools:text="138****1234" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{history.loginSuccess ? @string/login_success : @string/login_failed}"
+                android:textColor="@{history.loginSuccess ? @color/green : @color/red}"
+                tools:text="登录成功" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{history.deviceInfo}"
+            android:textSize="14sp"
+            android:textColor="@color/background"
+            tools:text="Xiaomi MI 9 (Android 10)" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{history.ipAddress}"
+            android:textSize="12sp"
+            android:textColor="@color/background"
+            tools:text="192.168.1.1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{history.loginTime.toString()}"
+            android:textSize="12sp"
+            android:textColor="@color/background"
+            tools:text="2023-05-15 14:30:25" />
+    </LinearLayout>
+</layout>

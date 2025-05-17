@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.health.ui.viewmodel.ProfileViewModel" />
+        <variable
+            name="profile"
+            type="com.example.health.model.pojo.UserProfile" />
+        <variable
+            name="device"
+            type="com.example.health.model.pojo.HealthBluetoothDevice" />
+
+        <import type="java.util.List" />
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/profileFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/background">
+
+<!--               个人信息-->
+                <LinearLayout
+                    android:layout_width="390dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/rounded_corner"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <com.example.health.widgets.AvatarImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginLeft="30dp"
+                        app:avatar="@{profile.avatar}"
+                        app:defaultAvatar="@{@drawable/ic_default_avatar}"/>
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:text="@{profile.nickname}"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:genderText="@{profile.gender}"
+                                android:visibility="@{profile.gender != null ? View.VISIBLE : View.GONE}"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                app:ageText="@{profile.birthDate}"
+                                android:visibility="@{profile.birthDate != null ? View.VISIBLE : View.GONE}"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+<!--                蓝牙设备-->
+                <LinearLayout
+                    android:id="@+id/bluetoothContainer"
+                    android:layout_width="390dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_corner">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.connectedDevice == null ? View.VISIBLE : View.GONE}"
+                        android:onClick="@{() -> viewModel.startDiscovery()}">
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/add"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="添加蓝牙设备"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <!-- 设备列表 -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvDevices"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="@{viewModel.connectedDevice != null ? View.VISIBLE : View.GONE}"
+                            app:items="@{viewModel.savedDevices}"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/item_bluetooth_device"/>
+                    </LinearLayout>
+                </LinearLayout>
+<!--                设置-->
+                <LinearLayout
+                    android:layout_width="390dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp">
+
+<!--                    个人信息-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:onClick="@{() -> viewModel.navigateToEditProfile()}">
+
+                        <TextView
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:text="个人信息"
+                            android:textSize="20sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="20dp"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/goon"/>
+
+                    </LinearLayout>
+
+<!--                    健康报告-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:onClick="@{() -> viewModel.navigateToHealthReport()}">
+
+                        <TextView
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:text="健康报告"
+                            android:textSize="20sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="20dp"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/goon"/>
+
+                    </LinearLayout>
+
+<!--                    隐私保护-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:onClick="@{() -> viewModel.navigateToPrivacySettings()}">
+
+                        <TextView
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:text="隐私保护"
+                            android:textSize="20sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="20dp"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/goon"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="50dp"
+                    android:shadowColor="@color/black"
+                    android:text="退出登录"
+                    android:onClick="@{() -> viewModel.navigateToLogin()}"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 底部导航栏布局 -->
+        <LinearLayout
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="@{() -> viewModel.navigateToHealth()}">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/health" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="健康" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="@{() -> viewModel.navigateToExercise()}">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/exercise" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运动" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/selected_myself" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</layout>
