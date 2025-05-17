@@ -14,12 +14,12 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        //maven { setUrl("https://jitpack.io") }
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url = uri("https://jitpack.io") }
         // 阿里云镜像（覆盖 Maven Central、Google、JCenter 等）
         maven { setUrl("https://maven.aliyun.com/repository/public/") }
         maven { setUrl("https://maven.aliyun.com/repository/google/") }
@@ -33,10 +33,9 @@ dependencyResolutionManagement {
         maven { setUrl("https://mirrors.163.com/maven/repository/maven-public/") }
         google()
         mavenCentral()
-        maven { setUrl("https://jitpack.io") }
     }
 }
 
 rootProject.name = "health"
 include(":app")
- 
+include(":mylibrary")

@@ -1,0 +1,7 @@
+jdk:
+  - openjdk17
+build:
+  tools:
+    gradle: 8.7
+install:
+  - ./gradlew publishToMavenLocal -x test

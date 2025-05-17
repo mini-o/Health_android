@@ -82,7 +82,7 @@ dependencies {
 
     // 短信验证码
     //implementation("com.github.jiusetian:EasyCountDownTextureView:2.1.0")
-    implementation("com.github.mini-o:health:Tag")
+    implementation("com.github.mini-o:Health_android:1.0.0")
 
     // 设备信息
     //implementation("com.github.jaredrummler:android-device-names:2.0.0")
